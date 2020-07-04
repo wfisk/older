@@ -1,43 +1,266 @@
 [
   {
     "a": {
-      "id": "maestro",
       "name": "The Queen",
       "type": "Royalty",
-      "year": 1926,
       "born": "1926-04-21",
-      "image": "queen.jpg",
-      "similar": ["hinikoj"]
+      "image": "queen.jpg"
     },
     "b": {
-      "id": "bryce_mck1nney", 
       "name": "The Pope", 
       "type": "Popery",
-      "year": 1936,
       "born": "1936-12-17",
-      "image": "pope.png",
-      "similar": ["dede"]
+      "image": "pope.png"
     }
   },
+
   {
     "a": {
-      "id": "maestro",
-      "name": "Maestro Harrell",
-      "type": "Royalty",
-      "year": 1926,
-      "born": "1926-04-21",
-      "image": "queen.jpg",
-      "similar": ["hinikoj"]
+      "name": "Jürgen Klopp",
+      "born": "1967-06-16",
+      "image": "klopp.jpg"
     },
     "b": {
-      "id": "bryce_mck1nney", 
-      "name": "Bryce McKinney", 
-      "type": "Popery",
-      "year": 1936,
-      "born": "1936-12-17",
-      "image": "pope.png",
-      "similar": ["dede"]
+      "name": "Pep Guardiola", 
+      "born": "1971-01-18",
+      "image": "pep.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Elton John",
+      "born": "1947-03-25",
+      "image": "ejohn.jpg"
+    },
+    "b": {
+      "name": "Billy Joel", 
+      "born": "1949-05-09",
+      "image": "bjoel.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "The Earth",
+      "age": 4.543,
+      "image": "earth.jpg"
+    },
+    "b": {
+      "name": "Mars", 
+      "age": 4.603,
+      "image": "mars.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Sid",
+      "born": "1961-09-23",
+      "image": "sid.png"
+    },
+    "b": {
+      "name": "Deb", 
+      "born": "1962-07-08",
+      "image": "deb.jpg"
+    }
+  },
+
+
+  {
+    "a": {
+      "name": "Sergio Aguero",
+      "born": "1988-06-02",
+      "image": "aguero.jpg"
+    },
+    "b": {
+      "name": "Lional Messi", 
+      "born": "1987-06-24",
+      "image": "messi.jpeg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Joe Biden",
+      "born": "1942-11-20",
+      "image": "biden.jpg"
+    },
+    "b": {
+      "name": "Donald Trump", 
+      "born": "1946-06-14",
+      "image": "trump.jpeg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Hilary Clinton",
+      "born": "1947-10-26",
+      "image": "hclinton.jpg"
+    },
+    "b": {
+      "name": "Bill Clinton", 
+      "born": "1946-08-19",
+      "image": "bclinton.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Boris Johnson",
+      "born": "1964-06-19",
+      "image": "bjohnson.jpg"
+    },
+    "b": {
+      "name": "Keirr Starmer", 
+      "born": "1962-09-02",
+      "image": "kstarmer.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Ushan Bolt",
+      "born": "1986-08-21",
+      "image": "bolt.jpg"
+    },
+    "b": {
+      "name": "Justin Gatlin", 
+      "born": "1982-02-10",
+      "image": "gatlin.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "George Clooney",
+      "born": "1961-05-06",
+      "image": "clooney.jpg"
+    },
+    "b": {
+      "name": "Brad Pitt", 
+      "born": "1963-12-18",
+      "image": "pitt.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Eiffel Tower",
+      "born": "1889-03-15",
+      "image": "eiffel.jpeg"
+    },
+    "b": {
+      "name": "Statue of Liberty", 
+      "born": "1886-10-28",
+      "image": "liberty.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Hibernian FC",
+      "born": "1875-08-06",
+      "image": "hibs.png"
+    },
+    "b": {
+      "name": "Heart of Midlothian FC", 
+      "born": "1874-06-30",
+      "image": "hearts.png"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Emmanuelle Macron",
+      "born": "1977-12-21",
+      "image": "emacron.jpg"
+    },
+    "b": {
+      "name": "Brigitte Macron", 
+      "born": "1953-04-13",
+      "image": "bmacron.jpeg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Cumbernauld",
+      "born": "1956-06-30",
+      "image": "cumbernauld.jpg"
+    },
+    "b": {
+      "name": "East Kilbride", 
+      "born": "1949-06-30",
+      "image": "east_kilbride.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Rowan Arkinson",
+      "born": "1955-01-06",
+      "image": "atkinson.jpg"
+    },
+    "b": {
+      "name": "Hugh Laurie", 
+      "born": "1959-06-11",
+      "image": "laurie.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Andy Murray",
+      "born": "1987-05-15",
+      "image": "murray.jpg"
+    },
+    "b": {
+      "name": "Rafael Nadal", 
+      "born": "1986-06-03",
+      "image": "nadal.jpeg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Dwayne Johnson",
+      "born": "1972-05-02",
+      "image": "djohnson.jpg"
+    },
+    "b": {
+      "name": "Vin Diesal", 
+      "born": "1967-07-18",
+      "image": "diesel.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Paul McCartney",
+      "born": "1942-06-18",
+      "image": "paul.jpg"
+    },
+    "b": {
+      "name": "Mick Jagger", 
+      "born": "1943-07-26",
+      "image": "jagger.jpg"
+    }
+  },
+
+  {
+    "a": {
+      "name": "Angela Merkel",
+      "born": "1954-07-17",
+      "image": "merkel.jpg"
+    },
+    "b": {
+      "name": "Valdimir Putin", 
+      "born": "1952-10-07",
+      "image": "putin.jpg"
     }
   }
+
 
 ]

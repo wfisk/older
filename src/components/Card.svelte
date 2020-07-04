@@ -21,14 +21,16 @@
     dispatch('select')}
     >
     <div class="details">
-      <h2><a target="_blank" href="https://cameo.com/{celeb.id}">{celeb.name}</a></h2>
+      <h2>{celeb.name}</h2>
 
-      <p class="type">{celeb.type}</p>
+      {#if celeb.type}
+        <p class="type">{celeb.type}</p>
+      {/if}
     </div>
 
     {#if showyear}
-			<div class="year" class:large={winner}>
-				<span in:scale={{easing:elasticOut, duration: 1200}}>age {celeb.age}</span>
+			<div class="age" class:large={winner}>
+				<span in:scale={{easing:elasticOut, duration: 800}}>age {celeb.age}</span>
 			</div>
 		{/if}
 	</button>
@@ -76,7 +78,7 @@
 		text-overflow: ellipsis;
 	}
 
-	.year {
+	.age {
 		position: absolute;
 		width: 100%;
 		height: 100%;
@@ -91,7 +93,7 @@
 		font-weight: 700;
 	}
 
-	.year.large {
+	.age.large {
 		font-size: 6em;
 	}
 

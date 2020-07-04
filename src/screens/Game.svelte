@@ -24,12 +24,12 @@
     duration: 300
   });
 
-  const load_details = async (celeb) => {
-    const res = await fetch(`https://cameo-explorer.netlify.app/celebs/${celeb.id}.json`);
-    const details = await res.json();
-    await load_image(details.image);
-    return details;
-  };
+  // const load_details = async (celeb) => {
+  //   const res = await fetch(`https://cameo-explorer.netlify.app/celebs/${celeb.id}.json`);
+  //   const details = await res.json();
+  //   await load_image(details.image);
+  //   return details;
+  // };
 
   // const promises = selection.map(round => Promise.all([
   //   load_details(round.a),
@@ -58,7 +58,7 @@
   };
 
   const submit = async (a, b, sign) => {
-    last_result = Math.sign(b.year - a.year) === sign ?
+    last_result = Math.sign(a.age - b.age) === sign ?
       'right' :
       'wrong';
 
@@ -88,7 +88,7 @@
 </script>
 
 <header>
-  <p>Tap on the more monetisable celebrity's face, or tap 'same year' if society values them equally.</p>
+  <p>Click on the older</p>
 </header>
 
 <div class="game-container">
@@ -112,7 +112,7 @@
 						celeb={a}
 						on:select={() => submit(a, b, 1)}
 						showyear={!!last_result}
-						winner={a.year <= b.year}
+						winner={a.age > b.age}
 					/>
 				</div>
 
@@ -124,7 +124,7 @@
 						celeb={b}
 						on:select={() => submit(a, b, -1)}
 						showyear={!!last_result}
-						winner={b.year < a.year}
+						winner={b.age >= a.age}
 					/>
 				</div>
       </div>

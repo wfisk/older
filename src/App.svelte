@@ -1,6 +1,7 @@
 <script>
   import {
-    differenceInYears
+    differenceInYears,
+    getYear
   } from 'date-fns';
   import parseISO from 'date-fns/parseISO'
   import {
@@ -30,14 +31,20 @@
     // selection = select(celebs, lookup, e.detail.category.slug);
 
     selection = comparisons.map((comparison) => {
-      comparison.a.age = differenceInYears(
-        new Date(),
-        parseISO(comparison.a.born)
-      );
-      comparison.b.age = differenceInYears(
-        new Date(),
-        parseISO(comparison.b.born)
-      );
+      if (!comparison.a.age) {
+        comparison.a.age = differenceInYears(
+          new Date(),
+          parseISO(comparison.a.born)
+        );
+      }
+
+
+      if (!comparison.b.age) {
+        comparison.b.age = differenceInYears(
+          new Date(),
+          parseISO(comparison.b.born)
+        );
+      }
 
     });
 
@@ -47,31 +54,7 @@
     state = 'playing';
   };
 
-  const load_celebs = async () => {
-    const res = await fetch('https://cameo-explorer.netlify.app/celebs.json');
-    const data = await res.json();
 
-    const lookup = new Map();
-
-    data.forEach(c => {
-      lookup.set(c.id, c);
-    });
-
-    const subset = new Set();
-    data.forEach(celeb => {
-      if (celeb.reviews >= 50) {
-        subset.add(celeb);
-        celeb.similar.forEach(id => {
-          subset.add(lookup.get(id));
-        });
-      }
-    });
-
-    return {
-      celebs: Array.from(subset),
-      lookup
-    };
-  };
 
   onMount(() => {
     // celebs_promise = load_celebs();

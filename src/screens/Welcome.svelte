@@ -50,10 +50,10 @@
     Who is Older?
   </h1>
 
-  <p>Who or which is the oldest of the following?</p>
+
 </header>
 
-<p>Click Start to start the quiz</p>
+
 
 <button disabled={selected} on:click={()=> select("start")}>Start</button>
 
