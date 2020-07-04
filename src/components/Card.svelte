@@ -1,30 +1,34 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
-	import { scale } from 'svelte/transition';
-	import { elasticOut } from 'svelte/easing';
+  import {
+    createEventDispatcher
+  } from 'svelte';
+  import {
+    scale
+  } from 'svelte/transition';
+  import {
+    elasticOut
+  } from 'svelte/easing';
 
-	export let celeb;
-	export let showprice;
-	export let winner;
+  export let celeb;
+  export let showyear;
+  export let winner;
 
-	const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class="card-outer">
-	<button
-		class="card-inner"
-		style="background-image: url({celeb.image});"
-		on:click={() => dispatch('select')}
-	>
-		<div class="details">
-			<h2><a target="_blank" href="https://cameo.com/{celeb.id}">{celeb.name}</a></h2>
+  <button class="card-inner" style="background-image: url(/assets/images/{celeb.image});" on:click={()=>
+    dispatch('select')}
+    >
+    <div class="details">
+      <h2><a target="_blank" href="https://cameo.com/{celeb.id}">{celeb.name}</a></h2>
 
-			<p class="type">{celeb.type}</p>
-		</div>
+      <p class="type">{celeb.type}</p>
+    </div>
 
-		{#if showprice}
-			<div class="price" class:large={winner}>
-				<span in:scale={{easing:elasticOut, duration: 600}}>${celeb.price}</span>
+    {#if showyear}
+			<div class="year" class:large={winner}>
+				<span in:scale={{easing:elasticOut, duration: 1200}}>age {celeb.age}</span>
 			</div>
 		{/if}
 	</button>
@@ -72,7 +76,7 @@
 		text-overflow: ellipsis;
 	}
 
-	.price {
+	.year {
 		position: absolute;
 		width: 100%;
 		height: 100%;
@@ -87,7 +91,7 @@
 		font-weight: 700;
 	}
 
-	.price.large {
+	.year.large {
 		font-size: 6em;
 	}
 

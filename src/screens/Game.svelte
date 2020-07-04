@@ -1,82 +1,105 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
-	import { fly, scale, crossfade } from 'svelte/transition';
-	import * as eases from 'svelte/easing';
-	import Card from '../components/Card.svelte';
-	import { sleep, pick_random, load_image } from '../utils.js';
+  import {
+    createEventDispatcher
+  } from 'svelte';
+  import {
+    fly,
+    scale,
+    crossfade
+  } from 'svelte/transition';
+  import * as eases from 'svelte/easing';
+  import Card from '../components/Card.svelte';
+  import {
+    sleep,
+    pick_random,
+    load_image
+  } from '../utils.js';
 
-	export let selection;
+  export let selection;
 
-	const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
-	const [send, receive] = crossfade({
-		easing: eases.cubicOut,
-		duration: 300
-	});
+  const [send, receive] = crossfade({
+    easing: eases.cubicOut,
+    duration: 300
+  });
 
-	const load_details = async (celeb) => {
-		const res = await fetch(`https://cameo-explorer.netlify.app/celebs/${celeb.id}.json`);
-		const details = await res.json();
-		await load_image(details.image);
-		return details;
-	};
+  const load_details = async (celeb) => {
+    const res = await fetch(`https://cameo-explorer.netlify.app/celebs/${celeb.id}.json`);
+    const details = await res.json();
+    await load_image(details.image);
+    return details;
+  };
 
-	const promises = selection.map(round => Promise.all([
-		load_details(round.a),
-		load_details(round.b)
-	]));
+  // const promises = selection.map(round => Promise.all([
+  //   load_details(round.a),
+  //   load_details(round.b)
+  // ]));
 
-	const results = Array(selection.length);
+  const promises = selection.map(round => [
+    round.a,
+    round.b
+  ]);
 
-	$: score = results.filter(x => x === 'right').length;
+  const results = Array(selection.length);
 
-	let last_result;
-	let done = false;
-	let ready = true;
+  $: score = results.filter(x => x === 'right').length;
 
-	const pick_message = p => {
-		if (p <= 0.2) return pick_random([`Oof.`, `Better luck next time?`]);
-		if (p <= 0.5) return pick_random([`I've seen worse`, `Keep trying!`]);
-		if (p <= 0.8) return pick_random([`Yeah!`, `Not bad. Practice makes perfect`]);
-		if (p < 1) return pick_random([`Impressive.`]);
-		return pick_random([`Flawless victory`, `Top marks`]);
-	};
+  let last_result;
+  let done = false;
+  let ready = true;
 
-	const submit = async (a, b, sign) => {
-		last_result = Math.sign(a.price - b.price) === sign
-			? 'right'
-			: 'wrong';
+  const pick_message = p => {
+    if (p <= 0.2) return pick_random([`Oof.`, `Better luck next time?`]);
+    if (p <= 0.5) return pick_random([`I've seen worse`, `Keep trying!`]);
+    if (p <= 0.8) return pick_random([`Yeah!`, `Not bad. Practice makes perfect`]);
+    if (p < 1) return pick_random([`Impressive.`]);
+    return pick_random([`Flawless victory`, `Top marks`]);
+  };
 
-		await sleep(1500);
+  const submit = async (a, b, sign) => {
+    last_result = Math.sign(b.year - a.year) === sign ?
+      'right' :
+      'wrong';
 
-		results[i] = last_result;
-		last_result = null;
+    await sleep(1500);
 
-		await sleep(500);
+    results[i] = last_result;
+    last_result = null;
 
-		if (i < selection.length - 1) {
-			i += 1;
-		} else {
-			done = true;
-		}
-	};
+    await sleep(500);
 
-	let i = 0;
+    if (i < selection.length - 1) {
+      i += 1;
+    } else {
+      done = true;
+    }
+  };
+
+  let i = 0;
+
+
+  $: a = promises[i][0]
+  $: b = promises[i][1];
+
+  $: console.log({
+    promises
+  });
 </script>
 
 <header>
-	<p>Tap on the more monetisable celebrity's face, or tap 'same price' if society values them equally.</p>
+  <p>Tap on the more monetisable celebrity's face, or tap 'same year' if society values them equally.</p>
 </header>
 
 <div class="game-container">
-	{#if done}
+  {#if done}
 		<div class="done" in:scale={{delay:200, duration: 800, easing:eases.elasticOut}}>
 			<strong>{score}/{results.length}</strong>
 			<p>{pick_message(score / results.length)}</p>
-			<button on:click={() => dispatch('restart')}>Back to main screen</button>
+			<!-- button on:click={() => dispatch('restart')}>Back to main screen</button -->
 		</div>
-	{:else if ready}
-		{#await promises[i] then [a, b]}
+  {:else if ready}
+    {#if a && b }
 			<div
 				class="game"
 				in:fly={{duration:200,y:20}}
@@ -88,29 +111,24 @@
 					<Card
 						celeb={a}
 						on:select={() => submit(a, b, 1)}
-						showprice={!!last_result}
-						winner={a.price >= b.price}
+						showyear={!!last_result}
+						winner={a.year <= b.year}
 					/>
 				</div>
 
 				<div>
-					<button class="same" on:click={() => submit(a, b, 0)}>
-						same price
-					</button>
 				</div>
 
 				<div class="card-container">
 					<Card
 						celeb={b}
 						on:select={() => submit(a, b, -1)}
-						showprice={!!last_result}
-						winner={b.price >= a.price}
+						showyear={!!last_result}
+						winner={b.year < a.year}
 					/>
 				</div>
-			</div>
-		{:catch}
-			<p class="error">Oops! Failed to load data</p>
-		{/await}
+      </div>
+      {/if}
 	{/if}
 </div>
 

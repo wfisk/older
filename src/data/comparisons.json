@@ -1,0 +1,43 @@
+[
+  {
+    "a": {
+      "id": "maestro",
+      "name": "The Queen",
+      "type": "Royalty",
+      "year": 1926,
+      "born": "1926-04-21",
+      "image": "queen.jpg",
+      "similar": ["hinikoj"]
+    },
+    "b": {
+      "id": "bryce_mck1nney", 
+      "name": "The Pope", 
+      "type": "Popery",
+      "year": 1936,
+      "born": "1936-12-17",
+      "image": "pope.png",
+      "similar": ["dede"]
+    }
+  },
+  {
+    "a": {
+      "id": "maestro",
+      "name": "Maestro Harrell",
+      "type": "Royalty",
+      "year": 1926,
+      "born": "1926-04-21",
+      "image": "queen.jpg",
+      "similar": ["hinikoj"]
+    },
+    "b": {
+      "id": "bryce_mck1nney", 
+      "name": "Bryce McKinney", 
+      "type": "Popery",
+      "year": 1936,
+      "born": "1936-12-17",
+      "image": "pope.png",
+      "similar": ["dede"]
+    }
+  }
+
+]

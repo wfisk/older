@@ -1,61 +1,91 @@
 <script>
-	import { onMount } from 'svelte';
-	import Welcome from './screens/Welcome.svelte';
-	import Game from './screens/Game.svelte';
-	import { select } from './select';
-	import { load_image } from './utils.js';
+  import {
+    differenceInYears
+  } from 'date-fns';
+  import parseISO from 'date-fns/parseISO'
+  import {
+    onMount
+  } from 'svelte';
+  import Welcome from './screens/Welcome.svelte';
+  import Game from './screens/Game.svelte';
+  // import {
+  //   select
+  // } from './select';
+  import {
+    load_image
+  } from './utils.js';
+  import comparisons from './data/comparisons.json';
 
-	let celebs_promise;
+  // let celebs_promise;
 
-	let state = 'welcome'; // 'welcome' or 'playing'
-	let selection;
+  let state = 'welcome'; // 'welcome' or 'playing'
+  let selection;
 
-	const start = async (e) => {
-		const { celebs, lookup } = await celebs_promise;
+  const start = async (e) => {
+    // const {
+    //   celebs,
+    //   lookup
+    // } = await celebs_promise;
 
-		selection = select(celebs, lookup, e.detail.category.slug);
-		state = 'playing';
-	};
+    // selection = select(celebs, lookup, e.detail.category.slug);
 
-	const load_celebs = async () => {
-		const res = await fetch('https://cameo-explorer.netlify.app/celebs.json');
-		const data = await res.json();
+    selection = comparisons.map((comparison) => {
+      comparison.a.age = differenceInYears(
+        new Date(),
+        parseISO(comparison.a.born)
+      );
+      comparison.b.age = differenceInYears(
+        new Date(),
+        parseISO(comparison.b.born)
+      );
 
-		const lookup = new Map();
+    });
 
-		data.forEach(c => {
-			lookup.set(c.id, c);
-		});
+    console.log({
+      comparisons
+    });
+    state = 'playing';
+  };
 
-		const subset = new Set();
-		data.forEach(celeb => {
-			if (celeb.reviews >= 50) {
-				subset.add(celeb);
-				celeb.similar.forEach(id => {
-					subset.add(lookup.get(id));
-				});
-			}
-		});
+  const load_celebs = async () => {
+    const res = await fetch('https://cameo-explorer.netlify.app/celebs.json');
+    const data = await res.json();
 
-		return {
-			celebs: Array.from(subset),
-			lookup
-		};
-	};
+    const lookup = new Map();
 
-	onMount(() => {
-		celebs_promise = load_celebs();
+    data.forEach(c => {
+      lookup.set(c.id, c);
+    });
 
-		load_image('/icons/right.svg');
-		load_image('/icons/wrong.svg');
-	});
+    const subset = new Set();
+    data.forEach(celeb => {
+      if (celeb.reviews >= 50) {
+        subset.add(celeb);
+        celeb.similar.forEach(id => {
+          subset.add(lookup.get(id));
+        });
+      }
+    });
+
+    return {
+      celebs: Array.from(subset),
+      lookup
+    };
+  };
+
+  onMount(() => {
+    // celebs_promise = load_celebs();
+
+    load_image('/icons/right.svg');
+    load_image('/icons/wrong.svg');
+  });
 </script>
 
 <main>
-	{#if state === 'welcome'}
+  {#if state === 'welcome'}
 		<Welcome on:select={start}/>
 	{:else if state === 'playing'}
-		<Game {selection} on:restart={() => state = 'welcome'}/>
+		<Game selection={comparisons} on:restart={() => state = 'welcome'}/>
 	{/if}
 </main>
 
